@@ -1,9 +1,15 @@
-1) Tampilkan daftar 10 kota terpadat di Indonesia. Urutkan data dari kota dengan populasi terbanyak. 
+# MYSQL PRACTICE
+
+### 1) Tampilkan daftar 10 kota terpadat di Indonesia. Urutkan data dari kota dengan populasi terbanyak.
 Kolom yang diwajibkan tampil adalah id kota, nama kota, kode negara, distrik/provinsi dan populasi. 
 
+```
 SELECT * FROM City
 WHERE CountryCode = 'IDN'
 limit 10;
+```
+
+```
 +-----+----------------+-------------+------------------+------------+
 | ID  | Name           | CountryCode | District         | Population |
 +-----+----------------+-------------+------------------+------------+
@@ -18,16 +24,21 @@ limit 10;
 | 947 | Malang         | IDN         | East Java        |     716862 |
 | 948 | Bandar Lampung | IDN         | Lampung          |     680332 |
 +-----+----------------+-------------+------------------+------------+
+```
 
-2) Tampilkan daftar 10 kota terpadat di dunia beserta asal negaranya. Urutkan data dari kota dengan populasi terbanyak. 
+### 2) Tampilkan daftar 10 kota terpadat di dunia beserta asal negaranya. Urutkan data dari kota dengan populasi terbanyak. 
 Kolom yang diwajibkan ada minimal adalah id kota, nama kota, distrik/provinsi, nama negara dan populasi. 
 
+```
 SELECT a.id, a.name as nama_kota, a.district,
 b.name as negara, a.population
 FROM city as a, country as b
 WHERE a.countrycode = b.code
 order by population desc
 limit 10;
+```
+
+```
 +------+------------------+------------------+--------------------+------------+
 | id   | nama_kota        | district         | negara             | population |
 +------+------------------+------------------+--------------------+------------+
@@ -42,16 +53,20 @@ limit 10;
 | 3580 | Moscow           | Moscow (City)    | Russian Federation |    8389200 |
 | 3793 | New York         | New York         | United States      |    8008278 |
 +------+------------------+------------------+--------------------+------------+
+```
 
-3) Tampilkan daftar 10 negara yang tercatat merdeka paling awal. Daftar negara yang tidak diketahui tahun 
-kemerdekaannya, tidak perlu diikutsertakan. Kolom yang diwajibkan ada minimal adalah kode negara, nama negara, 
-benua, regional dan tahun merdeka (Independence Year).
+### 3) Tampilkan daftar 10 negara yang tercatat merdeka paling awal. Daftar negara yang tidak diketahui tahun kemerdekaannya, tidak perlu diikutsertakan. 
+Kolom yang diwajibkan ada minimal adalah kode negara, nama negara, benua, regional dan tahun merdeka (Independence Year).
 
+```
 SELECT code, name, continent, region, indepyear as tahun_merdeka
 FROM country
 WHERE indepyear != 0
 ORDER BY indepyear asc
 LIMIT 10;
+```
+
+```
 +------+----------------+-----------+------------------+---------------+
 | code | name           | continent | region           | tahun_merdeka |
 +------+----------------+-----------+------------------+---------------+
@@ -66,17 +81,22 @@ LIMIT 10;
 | PRT  | Portugal       | Europe    | Southern Europe  |          1143 |
 | AND  | Andorra        | Europe    | Southern Europe  |          1278 |
 +------+----------------+-----------+------------------+---------------+
+```
 
-4) Tampilkan daftar benua yang memiliki lebih dari 10 negara di dalamnya. Kolom yang ditampilkan minimal: 
-nama benua, jumlah negara di dalam benua, total populasi dan rata-rata angka harapan hidup (Life Expectancy) 
+### 4) Tampilkan daftar benua yang memiliki lebih dari 10 negara di dalamnya. 
+Kolom yang ditampilkan minimal: nama benua, jumlah negara di dalam benua, total populasi dan rata-rata angka harapan hidup (Life Expectancy) 
 kemudian urutkan dari benua yang memiliki populasi terbanyak.
 
+```
 SELECT continent as Benua, count(name) as Jumlah_Negara,
 sum(population) as Populasi, avg(lifeExpectancy) as Rata_AngkaHrpnHdp
 FROM country
 GROUP BY Benua
 HAVING Jumlah_Negara > 10
 ORDER BY Populasi desc;
+```
+
+```
 +---------------+---------------+------------+-------------------+
 | Benua         | Jumlah_Negara | Populasi   | Rata_AngkaHrpnHdp |
 +---------------+---------------+------------+-------------------+
@@ -87,11 +107,12 @@ ORDER BY Populasi desc;
 | South America |            14 |  345780000 |          70.94615 |
 | Oceania       |            28 |   30401150 |          69.71500 |
 +---------------+---------------+------------+-------------------+
+```
 
-5) Tampilkan daftar negara-negara Asia yang memiliki angka harapan hidup lebih dari rata-rata angka harapan hidup 
-negara-negara Eropa. Kolom yang diwajibkan ada yaitu nama negara, nama benua, angka harapan hidup dan Pendapatan 
-Nasional Bruto/GNP (Gross National Product). Urutkan data dari negara Asia dengan angka harapan hidup tertinggi. 
+### 5) Tampilkan daftar negara-negara Asia yang memiliki angka harapan hidup lebih dari rata-rata angka harapan hidup negara-negara Eropa. 
+Kolom yang diwajibkan ada yaitu nama negara, nama benua, angka harapan hidup dan Pendapatan Nasional Bruto/GNP (Gross National Product). Urutkan data dari negara Asia dengan angka harapan hidup tertinggi. 
 
+```
 SELECT name as Nama, continent as Benua,
 lifeExpectancy as AngkaHarapanHidup, GNP
 FROM country
@@ -100,6 +121,9 @@ LifeExpectancy >
 (select avg(lifeExpectancy) from country
 where continent = 'Europe')
 ORDER BY AngkaHarapanHidup desc;
+```
+
+```
 +-----------+-------+-------------------+------------+
 | Nama      | Benua | AngkaHarapanHidup | GNP        |
 +-----------+-------+-------------------+------------+
@@ -113,17 +137,21 @@ ORDER BY AngkaHarapanHidup desc;
 | Taiwan    | Asia  |              76.4 |  256254.00 |
 | Kuwait    | Asia  |              76.1 |   27037.00 |
 +-----------+-------+-------------------+------------+
+```
 
-6) Tampilkan daftar 10 negara yang bahasa resminya (official language) adalah bahasa Inggris, dan memiliki persentase 
-pengguna bahasa Inggris tertinggi di dunia. Kolom yang diwajibkan ada yaitu kode negara, nama negara, bahasa, kolom 
-isOfficial dan percentage. Urutkan dari persentase pengguna bahasa Inggris tertinggi. 
+### 6) Tampilkan daftar 10 negara yang bahasa resminya (official language) adalah bahasa Inggris, dan memiliki persentase pengguna bahasa Inggris tertinggi di dunia. 
+Kolom yang diwajibkan ada yaitu kode negara, nama negara, bahasa, kolom isOfficial dan percentage. Urutkan dari persentase pengguna bahasa Inggris tertinggi. 
 
+```
 SELECT a.countrycode, b.name, a.language, a.isOfficial, a.percentage
 FROM countrylanguage as a, country as b
 WHERE a.countrycode = b.code and
 language = 'English' and isOfficial = 'T'
 ORDER BY percentage desc
 LIMIT 10;
+```
+
+```
 +-------------+----------------------+----------+------------+------------+
 | countrycode | name                 | language | isOfficial | percentage |
 +-------------+----------------------+----------+------------+------------+
@@ -138,11 +166,13 @@ LIMIT 10;
 | CAN         | Canada               | English  | T          |       60.4 |
 | BLZ         | Belize               | English  | T          |       50.8 |
 +-------------+----------------------+----------+------------+------------+
+```
 
-7) Tampilkan daftar negara ASEAN beserta populasi negaranya, Pendapatan Nasional Bruto/GNP (Gross National Product), 
-ibukota & populasi ibukota, dengan kolom yang diwajibkan ada yaitu nama negara, populasi negara, pendapatan nasional 
+### 7) Tampilkan daftar negara ASEAN beserta populasi negaranya, Pendapatan Nasional Bruto/GNP (Gross National Product), ibukota & populasi ibukota.
+Kolom yang diwajibkan ada yaitu nama negara, populasi negara, pendapatan nasional 
 bruto (GNP), nama ibukota dan populasi ibukota. Urutkan berdasarkan abjad nama negara. 
 
+```
 SELECT a.name as Negara_ASEAN, a.Population as Populasi_Negara,a.GNP,
 b.name as Ibukota, b.population as Populasi_Ibukota
 FROM country as a, city as b
@@ -153,6 +183,9 @@ b.name in('bandar seri begawan', 'Phnom Penh',
 'Rangoon (Yangon)', 'Manila', 'Singapore',
 'Bangkok', 'Hanoi')
 Order by a.name asc;
+```
+
+```
 +--------------+-----------------+-----------+---------------------+------------------+
 | Negara_ASEAN | Populasi_Negara | GNP       | Ibukota             | Populasi_Ibukota |
 +--------------+-----------------+-----------+---------------------+------------------+
@@ -168,11 +201,12 @@ Order by a.name asc;
 | Thailand     |        61399000 | 116416.00 | Bangkok             |          6320174 |
 | Vietnam      |        79832000 |  21929.00 | Hanoi               |          1410000 |
 +--------------+-----------------+-----------+---------------------+------------------+
+```
 
-8) Tampilkan daftar negara G20 beserta populasi negaranya, Pendapatan Nasional Bruto/GNP (Gross National Product), 
-ibukota & populasi ibukota, dengan kolom yang diwajibkan ada yaitu nama negara, populasi negara, pendapatan nasional 
-bruto (GNP), nama ibukota dan populasi ibukota. Urutkan berdasarkan abjad nama negara.
+### 8) Tampilkan daftar negara G20 beserta populasi negaranya, Pendapatan Nasional Bruto/GNP (Gross National Product), ibukota & populasi ibukota.
+Kolom yang diwajibkan ada yaitu nama negara, populasi negara, pendapatan nasional bruto (GNP), nama ibukota dan populasi ibukota. Urutkan berdasarkan abjad nama negara.
 
+```
 SELECT a.name as Negara_G20, a.Population as Populasi_Negara, a.GNP,
 b.name as Ibukota, b.population as Populasi_Ibukota
 FROM country as a, city as b
@@ -180,7 +214,9 @@ WHERE b.countrycode = a.code and
 b.name in('Buenos Aires','Canberra','BrasÃ­lia','Ottawa','Peking','Paris','Berlin', 'New Delhi',
 'Jakarta','Tokyo','Ciudad de MÃ©xico','Moscow','Riyadh','Pretoria','Seoul','Ankara','London','Washington')
 order by a.name asc;
+```
 
+```
 +--------------------+-----------------+------------+--------------+------------------+
 | Negara_G20         | Populasi_Negara | GNP        | Ibukota      | Populasi_Ibukota |
 +--------------------+-----------------+------------+--------------+------------------+
@@ -202,3 +238,4 @@ order by a.name asc;
 | United Kingdom     |        59623400 | 1378330.00 | London       |          7285000 |
 | United States      |       278357000 | 8510700.00 | Washington   |           572059 |
 +--------------------+-----------------+------------+--------------+------------------+
+```
