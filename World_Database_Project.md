@@ -172,16 +172,13 @@ LIMIT 10;
 Kolom yang diwajibkan ada yaitu nama negara, populasi negara, pendapatan nasional 
 bruto (GNP), nama ibukota dan populasi ibukota. Urutkan berdasarkan abjad nama negara. 
 
+
 ```
 SELECT a.name as Negara_ASEAN, a.Population as Populasi_Negara,a.GNP,
 b.name as Ibukota, b.population as Populasi_Ibukota
 FROM country as a, city as b
-WHERE b.countrycode = a.code and
-a.region = 'southeast asia' and
-b.name in('bandar seri begawan', 'Phnom Penh', 
-'Dili', 'Jakarta', 'Vientiane', 'Kuala Lumpur',
-'Rangoon (Yangon)', 'Manila', 'Singapore',
-'Bangkok', 'Hanoi')
+WHERE b.ID = a.capital and
+a.region = 'southeast asia'
 Order by a.name asc;
 ```
 
@@ -206,36 +203,34 @@ Order by a.name asc;
 ### 8) Tampilkan daftar negara G20 beserta populasi negaranya, Pendapatan Nasional Bruto/GNP (Gross National Product), ibukota & populasi ibukota.
 Kolom yang diwajibkan ada yaitu nama negara, populasi negara, pendapatan nasional bruto (GNP), nama ibukota dan populasi ibukota. Urutkan berdasarkan abjad nama negara.
 
-```
+'''
 SELECT a.name as Negara_G20, a.Population as Populasi_Negara, a.GNP,
 b.name as Ibukota, b.population as Populasi_Ibukota
 FROM country as a, city as b
-WHERE b.countrycode = a.code and
-b.name in('Buenos Aires','Canberra','BrasÃ­lia','Ottawa','Peking','Paris','Berlin', 'New Delhi',
-'Jakarta','Tokyo','Ciudad de MÃ©xico','Moscow','Riyadh','Pretoria','Seoul','Ankara','London','Washington')
+WHERE b.ID = a.capital and
+a.name in('Argentina', 'Australia', 'Brazil', 'Canada', 'China', 'France', 'Germany', 'India', 'Indonesia', 'Japan', 'Mexico', 'Russian Federation', 'Saudia Arabia', 'South Korea', 'Turkey', 'United Kingdom', 'United States')
 order by a.name asc;
-```
+'''
 
 ```
-+--------------------+-----------------+------------+--------------+------------------+
-| Negara_G20         | Populasi_Negara | GNP        | Ibukota      | Populasi_Ibukota |
-+--------------------+-----------------+------------+--------------+------------------+
-| Argentina          |        37032000 |  340238.00 | Buenos Aires |          2982146 |
-| Australia          |        18886000 |  351182.00 | Canberra     |           322723 |
-| Canada             |        31147000 |  598862.00 | London       |           339917 |
-| Canada             |        31147000 |  598862.00 | Ottawa       |           335277 |
-| China              |      1277558000 |  982268.00 | Peking       |          7472000 |
-| France             |        59225700 | 1424285.00 | Paris        |          2125246 |
-| Germany            |        82164700 | 2133367.00 | Berlin       |          3386667 |
-| India              |      1013662000 |  447114.00 | New Delhi    |           301297 |
-| Indonesia          |       212107000 |   84982.00 | Jakarta      |          9604900 |
-| Japan              |       126714000 | 3787042.00 | Tokyo        |          7980230 |
-| Russian Federation |       146934000 |  276608.00 | Moscow       |          8389200 |
-| Saudi Arabia       |        21607000 |  137635.00 | Riyadh       |          3324000 |
-| South Africa       |        40377000 |  116729.00 | Pretoria     |           658630 |
-| South Korea        |        46844000 |  320749.00 | Seoul        |          9981619 |
-| Turkey             |        66591000 |  210721.00 | Ankara       |          3038159 |
-| United Kingdom     |        59623400 | 1378330.00 | London       |          7285000 |
-| United States      |       278357000 | 8510700.00 | Washington   |           572059 |
-+--------------------+-----------------+------------+--------------+------------------+
++--------------------+-----------------+------------+------------------+------------------+
+| Negara_G20         | Populasi_Negara | GNP        | Ibukota          | Populasi_Ibukota |
++--------------------+-----------------+------------+------------------+------------------+
+| Argentina          |        37032000 |  340238.00 | Buenos Aires     |          2982146 |
+| Australia          |        18886000 |  351182.00 | Canberra         |           322723 |
+| Brazil             |       170115000 |  776739.00 | Brasília         |          1969868 |
+| Canada             |        31147000 |  598862.00 | Ottawa           |           335277 |
+| China              |      1277558000 |  982268.00 | Peking           |          7472000 |
+| France             |        59225700 | 1424285.00 | Paris            |          2125246 |
+| Germany            |        82164700 | 2133367.00 | Berlin           |          3386667 |
+| India              |      1013662000 |  447114.00 | New Delhi        |           301297 |
+| Indonesia          |       212107000 |   84982.00 | Jakarta          |          9604900 |
+| Japan              |       126714000 | 3787042.00 | Tokyo            |          7980230 |
+| Mexico             |        98881000 |  414972.00 | Ciudad de México |          8591309 |
+| Russian Federation |       146934000 |  276608.00 | Moscow           |          8389200 |
+| South Korea        |        46844000 |  320749.00 | Seoul            |          9981619 |
+| Turkey             |        66591000 |  210721.00 | Ankara           |          3038159 |
+| United Kingdom     |        59623400 | 1378330.00 | London           |          7285000 |
+| United States      |       278357000 | 8510700.00 | Washington       |           572059 |
++--------------------+-----------------+------------+------------------+------------------+
 ```
