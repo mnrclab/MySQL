@@ -203,14 +203,14 @@ Order by a.name asc;
 ### 8) Tampilkan daftar negara G20 beserta populasi negaranya, Pendapatan Nasional Bruto/GNP (Gross National Product), ibukota & populasi ibukota.
 Kolom yang diwajibkan ada yaitu nama negara, populasi negara, pendapatan nasional bruto (GNP), nama ibukota dan populasi ibukota. Urutkan berdasarkan abjad nama negara.
 
-'''
+```
 SELECT a.name as Negara_G20, a.Population as Populasi_Negara, a.GNP,
 b.name as Ibukota, b.population as Populasi_Ibukota
 FROM country as a, city as b
 WHERE b.ID = a.capital and
 a.name in('Argentina', 'Australia', 'Brazil', 'Canada', 'China', 'France', 'Germany', 'India', 'Indonesia', 'Japan', 'Mexico', 'Russian Federation', 'Saudia Arabia', 'South Korea', 'Turkey', 'United Kingdom', 'United States')
 order by a.name asc;
-'''
+```
 
 ```
 +--------------------+-----------------+------------+------------------+------------------+
